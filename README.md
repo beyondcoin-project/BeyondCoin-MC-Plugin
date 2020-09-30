@@ -40,6 +40,9 @@ Balance:
 
 ![](https://i.imgur.com/EYSjCoW.png)
 
+### License:
+[Licensed under the MIT license](https://github.com/Nugetzrul3/BeyondCoin-MC-Plugin/blob/master/LICENSE)
+
 ### Donations:
 If you like using this plugin, please feel free to donate:
 BTC: 15befWhRFQypzTJpcQR5jsg4S2ZXJjD5q5
