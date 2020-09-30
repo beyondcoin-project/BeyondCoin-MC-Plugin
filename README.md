@@ -23,6 +23,10 @@ To build a .jar file to add to your server:
 * Spigot-API v1.16.3-R0.1-SNAPSHOT
 * [bitcoin-rpc-client](https://github.com/Polve/bitcoin-rpc-client) v1.1.0
 
+### TODO:
+* Test tip functionality
+* Test withdraw functionality
+
 ### Screenshots:
 Info:
 
