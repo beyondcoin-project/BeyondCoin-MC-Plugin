@@ -1,0 +1,19 @@
+name: BYNDTipBot
+version: ${project.version}
+main: nugetzrul3.mc.tipbot.Main
+api-version: 1.16
+authors: [Nugetzrul3]
+description: This is a open source Minecraft TipBot developed for BeyondCoin
+commands:
+  hello:
+    description: This is a simple hello command
+  tiphelp:
+    description: This is a simple help message
+  info:
+    description: This command returns general info on the BYND network
+  deposit:
+    description: This command returns a BYDN address to deposit BYDN to
+  balance:
+    description: This command will return your tipbot balance
+  tip:
+    description: This command allows you to tip to other minecraft users in the same server
