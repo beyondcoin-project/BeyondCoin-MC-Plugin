@@ -63,7 +63,7 @@ public class WithdrawCommand implements CommandExecutor {
                 }
                 else {
                     if (player_balance.floatValue() >= withdraw_amount.floatValue()) {
-                        String txid = client.sendFrom(player.getDisplayName(), args[1], withdraw_amount);
+                        String txid = client.sendFrom(functions.getUserId(player.getDisplayName()), args[1], withdraw_amount);
                         TextComponent tc = new TextComponent();
                         tc.setText(ChatColor.GREEN + "Withdraw Successful!" + ChatColor.UNDERLINE + "Click here to view transaction");
                         tc.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, explorer + txid));
