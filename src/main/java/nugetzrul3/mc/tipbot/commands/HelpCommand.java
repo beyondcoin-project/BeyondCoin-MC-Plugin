@@ -26,7 +26,7 @@ public class HelpCommand implements CommandExecutor {
         Constants constants = new Constants();
 
         Player player = (Player) sender;
-        player.sendMessage(ChatColor.BLUE + "Welcome to the" + ChatColor.BLUE + constants.coinName + "MC Tipbot. Here are my commands\n" +
+        player.sendMessage(ChatColor.BLUE + "Welcome to the " + ChatColor.BLUE + constants.coinName + " MC Tipbot. Here are my commands\n" +
                 ChatColor.DARK_PURPLE + "1. /tiphelp: " + ChatColor.WHITE + "Displays this help message\n" +
                 ChatColor.DARK_PURPLE + "2. /tip <username> <amount>: " + ChatColor.WHITE + "Tip's a certain amount of BYND to another user\n" +
                 ChatColor.DARK_PURPLE + "3. /deposit: " + ChatColor.WHITE +"Gives you a BYND address to deposit BYND to\n" +

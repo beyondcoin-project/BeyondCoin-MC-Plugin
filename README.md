@@ -50,7 +50,12 @@ Balance:
 
 ### Donations:
 If you like using this plugin, please feel free to donate:
+
 BTC: 15befWhRFQypzTJpcQR5jsg4S2ZXJjD5q5
+
 ETH: 0x33165abBFde38781e05f9234FAc68Eb59fe1c6db
+
 BYND: BbqgF7YHF1EVTaaF3bMpmrGxsiU7VhbHL4
+
 SUGAR: sugar1qtl7u435t4jly2hdaa7hrcv5qkpvwa0spd9zzc7
+
