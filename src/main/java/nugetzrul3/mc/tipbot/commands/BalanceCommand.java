@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.json.JSONException;
 import wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient;
+import wf.bitcoin.javabitcoindrpcclient.BitcoinRPCException;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -51,8 +52,9 @@ public class BalanceCommand implements CommandExecutor {
             player.sendMessage(ChatColor.GREEN + "Your current balance: " + ChatColor.WHITE + balance + " " + constants.ticker +"\n" +
                     ChatColor.GREEN + "Your unconfirmed balance: " + ChatColor.WHITE + unconfirmed + " " + constants.ticker);
 
-        } catch (IOException | JSONException e) {
+        } catch (IOException | JSONException | BitcoinRPCException e) {
             e.printStackTrace();
+            player.sendMessage(ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
         }
 
         return false;

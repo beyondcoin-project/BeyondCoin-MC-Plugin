@@ -8,6 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient;
+import wf.bitcoin.javabitcoindrpcclient.BitcoinRPCException;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -28,24 +30,25 @@ public class InfoCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        Constants constant = new Constants();
+        Constants constants = new Constants();
 
-        String user = constant.user;
-        String password = constant.pass;
-        String host = constant.host;
-        String port = constant.port;
+        String user = constants.user;
+        String password = constants.pass;
+        String host = constants.host;
+        String port = constants.port;
 
         try {
             URL url = new URL("http://" + user + ":" + password + "@" + host + ":" + port + "/");
             BitcoinJSONRPCClient client = new BitcoinJSONRPCClient(url);
-            player.sendMessage(ChatColor.BLUE + "-- " + constant.coinName + "Network Information --");
+            player.sendMessage(ChatColor.BLUE + "-- " + constants.coinName + "Network Information --");
             player.sendMessage(ChatColor.GREEN + "Current Block Height: " + ChatColor.WHITE + client.getBlockCount() + "\n" +
                     ChatColor.GREEN + "Current Network hashrate: " + ChatColor.WHITE + getHashFormat(client.getNetworkHashPs().floatValue()) + "\n" +
                     ChatColor.GREEN + "Current Network Difficulty: " + ChatColor.WHITE + client.getDifficulty() + "\n" +
                     ChatColor.GREEN + "Client Version: " + ChatColor.WHITE + client.getNetworkInfo().subversion()
             );
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | BitcoinRPCException e) {
             e.printStackTrace();
+            player.sendMessage(net.md_5.bungee.api.ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
         }
 
         return false;

@@ -13,6 +13,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.json.JSONException;
 import wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient;
+import wf.bitcoin.javabitcoindrpcclient.BitcoinRPCException;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -71,8 +73,9 @@ public class WithdrawCommand implements CommandExecutor {
                         sender.sendMessage(ChatColor.RED + "You have insufficient funds!");
                     }
                 }
-            } catch (JSONException | IOException e) {
+            } catch (JSONException | IOException | BitcoinRPCException e) {
                 e.printStackTrace();
+                player.sendMessage(net.md_5.bungee.api.ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
             }
         }
         return false;

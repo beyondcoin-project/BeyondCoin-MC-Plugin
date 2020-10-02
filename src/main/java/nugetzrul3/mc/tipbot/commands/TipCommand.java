@@ -10,6 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient;
+import wf.bitcoin.javabitcoindrpcclient.BitcoinRPCException;
 
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -58,11 +59,16 @@ public class TipCommand implements CommandExecutor {
                     if (target != null) {
                         if (functions.isFloat(args[1])) {
                             BigDecimal tip_amount = BigDecimal.valueOf(Float.parseFloat(args[1]));
-                            if (sender_balance.floatValue() >= tip_amount.floatValue()) {
+                            if (sender_balance.floatValue() < tip_amount.floatValue()) {
+                                player.sendMessage(ChatColor.RED + "You do not have enough BYND to tip that amount");
+                            }
+                            else if (tip_amount.floatValue() < 0.00000001) {
+                                player.sendMessage(ChatColor.RED + "Amount must be greater than 0.00000001");
+                            }
+                            else {
+                                player.sendMessage(ChatColor.RED + "You do not have enough BYND to tip that amount");
                                 client.move(player.getDisplayName(), args[0], tip_amount);
                                 player.sendMessage(ChatColor.GREEN + "Tip sent successfully!! " + player.getDisplayName() + " sent " + tip_amount + constants.ticker + " to " + args[0]);
-                            } else {
-                                player.sendMessage(ChatColor.RED + "You do not have enough BYND to tip that amount");
                             }
                         } else {
                             player.sendMessage(ChatColor.RED + "The amount you sent was not a valid number");
@@ -72,8 +78,9 @@ public class TipCommand implements CommandExecutor {
                         sender.sendMessage(ChatColor.RED + "That player does not exist!!");
                     }
 
-                } catch (MalformedURLException e) {
+                } catch (MalformedURLException | BitcoinRPCException e) {
                     e.printStackTrace();
+                    player.sendMessage(net.md_5.bungee.api.ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
                 }
             }
             else {

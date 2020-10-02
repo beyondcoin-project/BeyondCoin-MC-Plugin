@@ -24,7 +24,6 @@ public class Functions {
             Float.parseFloat(amount);
             return true;
         } catch (NumberFormatException | NullPointerException e) {
-            e.printStackTrace();
             return false;
         }
     }

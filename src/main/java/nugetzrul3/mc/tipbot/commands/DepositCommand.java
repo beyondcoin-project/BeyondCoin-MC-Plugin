@@ -12,8 +12,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient;
 import org.json.*;
+import wf.bitcoin.javabitcoindrpcclient.BitcoinRPCException;
+
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class DepositCommand implements CommandExecutor {
@@ -51,8 +52,9 @@ public class DepositCommand implements CommandExecutor {
 
             player.spigot().sendMessage(tc);
 
-        } catch (IOException | JSONException e) {
+        } catch (IOException | JSONException | BitcoinRPCException e) {
             e.printStackTrace();
+            player.sendMessage(ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
         }
 
         return false;
