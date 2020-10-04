@@ -68,7 +68,6 @@ public class TipCommand implements CommandExecutor {
                                 player.sendMessage(ChatColor.RED + "Amount must be greater than 0.00000001");
                             }
                             else {
-                                player.sendMessage(ChatColor.RED + "You do not have enough BYND to tip that amount");
                                 client.move(player.getDisplayName(), args[0], tip_amount);
                                 player.sendMessage(ChatColor.GREEN + "Tip sent successfully!! " + player.getDisplayName() + " sent " + tip_amount + constants.ticker + " to " + args[0]);
                             }
