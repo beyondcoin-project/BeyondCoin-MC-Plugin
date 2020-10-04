@@ -14,14 +14,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.json.JSONException;
 import wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient;
 import wf.bitcoin.javabitcoindrpcclient.BitcoinRPCException;
 
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -29,6 +26,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class SignListeners implements Listener {
+
+    //TODO Test this out
 
     Constants constants = new Constants();
     Functions functions = new Functions();
@@ -61,7 +60,7 @@ public class SignListeners implements Listener {
     }
 
     @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event) {
+    public void onPlayerInteract(PlayerInteractEvent event) throws Exception {
         Player player = event.getPlayer();
         Block block;
         try {
@@ -135,7 +134,7 @@ public class SignListeners implements Listener {
                     tc.setClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, String.valueOf(dep_address)));
 
                     player.spigot().sendMessage(tc);
-                } catch (JSONException | IOException | BitcoinRPCException e) {
+                } catch (IOException | BitcoinRPCException e) {
                     player.sendMessage(ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
                 }
             }

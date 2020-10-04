@@ -54,7 +54,7 @@ public class TipCommand implements CommandExecutor {
                 try {
                     URL url = new URL("http://" + user + ":" + password + "@" + host + ":" + port + "/");
                     BitcoinJSONRPCClient client = new BitcoinJSONRPCClient(url);
-                    float sender_balance_get = client.getBalance(player.getDisplayName(), conf).floatValue();
+                    float sender_balance_get = client.getBalance(functions.getUserId(player.getDisplayName()), conf).floatValue();
                     BigDecimal sender_balance = new BigDecimal(String.valueOf(sender_balance_get));
                     Player target = Bukkit.getPlayerExact(args[0]);
                     if (target != null) {
@@ -82,6 +82,8 @@ public class TipCommand implements CommandExecutor {
 
                 } catch (MalformedURLException | BitcoinRPCException e) {
                     player.sendMessage(net.md_5.bungee.api.ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             else {

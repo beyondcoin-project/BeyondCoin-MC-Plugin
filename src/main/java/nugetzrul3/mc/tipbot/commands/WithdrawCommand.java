@@ -2,7 +2,6 @@ package nugetzrul3.mc.tipbot.commands;
 
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Text;
 import nugetzrul3.mc.tipbot.Main;
 import nugetzrul3.mc.tipbot.config.Constants;
 import nugetzrul3.mc.tipbot.config.Functions;
@@ -11,13 +10,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.json.JSONException;
 import wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient;
 import wf.bitcoin.javabitcoindrpcclient.BitcoinRPCException;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class WithdrawCommand implements CommandExecutor {
@@ -83,9 +80,11 @@ public class WithdrawCommand implements CommandExecutor {
                         sender.sendMessage(ChatColor.RED + "You have insufficient funds!");
                     }
                 }
-            } catch (JSONException | IOException | BitcoinRPCException e) {
+            } catch (IOException | BitcoinRPCException e) {
                 e.printStackTrace();
                 player.sendMessage(net.md_5.bungee.api.ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return false;

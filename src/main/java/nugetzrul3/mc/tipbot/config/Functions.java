@@ -1,22 +1,36 @@
 package nugetzrul3.mc.tipbot.config;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
 
-import java.io.IOException;
-import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Functions {
 
-    public String getUserId(String username) throws IOException, JSONException {
-        String url = "https://api.mojang.com/users/profiles/minecraft/" + username;
-        URL request = new URL(url);
+    public String getUserId(String username) throws Exception { ;
+        String path = "usercache.json";
+        String userid = null;
 
-        JSONTokener token = new JSONTokener(request.openStream());
-        JSONObject obj = new JSONObject(token);
+        String json = readFileAsString(path);
 
-        return obj.get("id").toString();
+        JSONParser parser = new JSONParser();
+        JSONArray array = (JSONArray) parser.parse(json);
+
+
+        if (array != null) {
+            for (int i = 0; i < array.size(); i++) {
+                JSONObject jsonobj = (JSONObject) parser.parse(array.get(i).toString());
+                String cache_username = jsonobj.get("name").toString();
+
+                if (cache_username.equalsIgnoreCase(username)) {
+                    userid = jsonobj.get("uuid").toString();
+                }
+            }
+        }
+
+        return userid;
     }
 
     public boolean isFloat(String amount) {
@@ -26,5 +40,9 @@ public class Functions {
         } catch (NumberFormatException | NullPointerException e) {
             return false;
         }
+    }
+
+    private static String readFileAsString(String file) throws Exception {
+        return new String(Files.readAllBytes(Paths.get(file)));
     }
 }
