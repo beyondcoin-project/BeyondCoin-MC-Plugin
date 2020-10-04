@@ -45,7 +45,7 @@ public class BalanceCommand implements CommandExecutor {
         try {
             URL url = new URL("http://" + user + ":" + password + "@" + host + ":" + port + "/");
             BitcoinJSONRPCClient client = new BitcoinJSONRPCClient(url);
-            float balance = client.getBalance(functions.getUserId(player.getDisplayName())).floatValue();
+            float balance = client.getBalance(functions.getUserId(player.getDisplayName()), conf).floatValue();
             float unconfirmed = client.getBalance(functions.getUserId(player.getDisplayName()), 0).floatValue() -
                     client.getBalance(functions.getUserId(player.getDisplayName()), conf).floatValue();
 
@@ -53,7 +53,6 @@ public class BalanceCommand implements CommandExecutor {
                     ChatColor.GREEN + "Your unconfirmed balance: " + ChatColor.WHITE + unconfirmed + " " + constants.ticker);
 
         } catch (IOException | JSONException | BitcoinRPCException e) {
-            e.printStackTrace();
             player.sendMessage(ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
         }
 

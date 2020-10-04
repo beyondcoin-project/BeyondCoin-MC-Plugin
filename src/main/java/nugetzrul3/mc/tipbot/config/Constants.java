@@ -1,5 +1,7 @@
 package nugetzrul3.mc.tipbot.config;
 
+import java.math.BigDecimal;
+
 public class Constants {
     public String host = "127.0.0.1";
     public String user = "username";
@@ -7,7 +9,8 @@ public class Constants {
     public String port = "10332";
     public String ticker = "BYND";
     public String coinName = "BeyondCoin";
-    public int conf = 25;
+    public int conf = 6;
     public String explorer = "https://chainz.cryptoid.info/bynd/tx.dws?";
+    public BigDecimal withdraw_fee = new BigDecimal("0.001");
 
 }

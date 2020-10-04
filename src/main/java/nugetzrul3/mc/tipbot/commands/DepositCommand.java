@@ -53,7 +53,6 @@ public class DepositCommand implements CommandExecutor {
             player.spigot().sendMessage(tc);
 
         } catch (IOException | JSONException | BitcoinRPCException e) {
-            e.printStackTrace();
             player.sendMessage(ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
         }
 

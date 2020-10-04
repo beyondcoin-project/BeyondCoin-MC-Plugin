@@ -54,15 +54,17 @@ public class TipCommand implements CommandExecutor {
                 try {
                     URL url = new URL("http://" + user + ":" + password + "@" + host + ":" + port + "/");
                     BitcoinJSONRPCClient client = new BitcoinJSONRPCClient(url);
-                    BigDecimal sender_balance = client.getBalance(player.getDisplayName(), conf);
+                    float sender_balance_get = client.getBalance(player.getDisplayName(), conf).floatValue();
+                    BigDecimal sender_balance = new BigDecimal(String.valueOf(sender_balance_get));
                     Player target = Bukkit.getPlayerExact(args[0]);
                     if (target != null) {
                         if (functions.isFloat(args[1])) {
-                            BigDecimal tip_amount = BigDecimal.valueOf(Float.parseFloat(args[1]));
-                            if (sender_balance.floatValue() < tip_amount.floatValue()) {
+                            float tip_get = Float.parseFloat(args[1]);
+                            BigDecimal tip_amount = new BigDecimal(String.valueOf(tip_get));
+                            if (sender_balance.floatValue() < tip_get) {
                                 player.sendMessage(ChatColor.RED + "You do not have enough BYND to tip that amount");
                             }
-                            else if (tip_amount.floatValue() < 0.00000001) {
+                            else if (tip_get < 0.00000001) {
                                 player.sendMessage(ChatColor.RED + "Amount must be greater than 0.00000001");
                             }
                             else {
@@ -79,7 +81,6 @@ public class TipCommand implements CommandExecutor {
                     }
 
                 } catch (MalformedURLException | BitcoinRPCException e) {
-                    e.printStackTrace();
                     player.sendMessage(net.md_5.bungee.api.ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
                 }
             }

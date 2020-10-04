@@ -47,7 +47,6 @@ public class InfoCommand implements CommandExecutor {
                     ChatColor.GREEN + "Client Version: " + ChatColor.WHITE + client.getNetworkInfo().subversion()
             );
         } catch (MalformedURLException | BitcoinRPCException e) {
-            e.printStackTrace();
             player.sendMessage(net.md_5.bungee.api.ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
         }
 

@@ -45,6 +45,7 @@ public class WithdrawCommand implements CommandExecutor {
         String port = constants.port;
         String explorer = constants.explorer;
 
+
         if (args.length == 0) {
             sender.sendMessage(ChatColor.RED + "You didn't specify how much you want to withdraw");
         }
@@ -56,16 +57,25 @@ public class WithdrawCommand implements CommandExecutor {
                 URL url = new URL("http://" + user + ":" + password + "@" + host + ":" + port + "/");
                 BitcoinJSONRPCClient client = new BitcoinJSONRPCClient(url);
                 BigDecimal player_balance = client.getBalance(functions.getUserId(player.getDisplayName()));
-                BigDecimal withdraw_amount = BigDecimal.valueOf(Float.parseFloat(args[0]));
+                float actual_withdraw = Float.parseFloat(args[0]) - constants.withdraw_fee.floatValue();
+                BigDecimal withdraw_amount = new BigDecimal(String.valueOf(actual_withdraw));;
 
                 if (!(client.validateAddress(args[1]).isValid())) {
                     sender.sendMessage(ChatColor.RED + "The address you specified is not valid");
                 }
                 else {
                     if (player_balance.floatValue() >= withdraw_amount.floatValue()) {
-                        String txid = client.sendFrom(functions.getUserId(player.getDisplayName()), args[1], withdraw_amount);
+                        String withdraw_sender = functions.getUserId(player.getDisplayName());
+                        String txid = client.sendFrom(withdraw_sender, args[1], withdraw_amount);
+                        float txfeeget = -(client.getTransaction(txid).fee().floatValue());
+                        BigDecimal txfee = new BigDecimal(String.valueOf(txfeeget));
+                        client.move(withdraw_sender, "mcwallet", constants.withdraw_fee);
+                        client.move("mcwallet", withdraw_sender, txfee);
                         TextComponent tc = new TextComponent();
-                        tc.setText(ChatColor.GREEN + "Withdraw Successful!" + ChatColor.UNDERLINE + "Click here to view transaction");
+                        tc.setText(ChatColor.GREEN + "Withdraw Successful!\n" +
+                                ChatColor.GREEN + "Withdrawn amount: " + " " + ChatColor.WHITE + withdraw_amount + " " + constants.ticker + "\n" +
+                                ChatColor.GREEN + "Withdrawal Fee: " + " " + ChatColor.WHITE + constants.withdraw_fee + " " + constants.ticker + "\n" +
+                                ChatColor.UNDERLINE + "Click here to view transaction");
                         tc.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, explorer + txid));
                         player.spigot().sendMessage(tc);
                     }
