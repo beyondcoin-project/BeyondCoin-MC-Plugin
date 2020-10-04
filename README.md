@@ -27,6 +27,7 @@ To build a .jar file to add to your server:
 ### TODO:
 - [ ] Test tip functionality
 - [x] Test withdraw functionality
+- [ ] Finalise and debug sign commands
 
 ### Screenshots:
 Info:

@@ -111,3 +111,5 @@ buildNumber.properties
 
 # Common working directory
 run/
+
+src/main/java/nugetzrul3/mc/tipbot/config/Constants.java
