@@ -25,8 +25,8 @@ To build a .jar file to add to your server:
 * Java-json
 
 ### TODO:
-* Test tip functionality
-* Test withdraw functionality
+- [ ] Test tip functionality
+- [x] Test withdraw functionality
 
 ### Screenshots:
 Info:
@@ -44,6 +44,10 @@ Help:
 Balance:
 
 ![](https://i.imgur.com/EYSjCoW.png)
+
+Withdraw:
+
+![](https://i.imgur.com/UqqYakX.png)
 
 ### License:
 [Licensed under the MIT license](https://github.com/Nugetzrul3/BeyondCoin-MC-Plugin/blob/master/LICENSE)
