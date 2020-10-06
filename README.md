@@ -25,7 +25,7 @@ To build a .jar file to add to your server:
 * json-simple v1.1.1
 
 ### TODO:
-- [ ] Test tip functionality
+- [x] Test tip functionality
 - [x] Test withdraw functionality
 - [ ] Finalise and debug sign commands
 
