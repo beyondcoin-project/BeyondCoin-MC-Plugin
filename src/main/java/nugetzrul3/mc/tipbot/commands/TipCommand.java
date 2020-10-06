@@ -62,21 +62,22 @@ public class TipCommand implements CommandExecutor {
                             float tip_get = Float.parseFloat(args[1]);
                             BigDecimal tip_amount = new BigDecimal(String.valueOf(tip_get));
                             if (sender_balance.floatValue() < tip_get) {
-                                player.sendMessage(ChatColor.RED + "You do not have enough BYND to tip that amount");
+                                player.sendMessage(ChatColor.RED + "You do not have enough " + constants.ticker + " to tip that amount");
                             }
                             else if (tip_get < 0.00000001) {
                                 player.sendMessage(ChatColor.RED + "Amount must be greater than 0.00000001");
                             }
                             else {
-                                client.move(functions.getUserId(player.getDisplayName()), args[0], tip_amount);
+                                client.move(functions.getUserId(player.getDisplayName()), functions.getUserId(args[0]), tip_amount);
                                 player.sendMessage(ChatColor.GREEN + "Tip sent successfully!! " + player.getDisplayName() + " sent " + tip_amount + constants.ticker + " to " + args[0]);
+                                target.sendMessage(ChatColor.GREEN + "Yay! " + player.getDisplayName() + " Just tipped you " + tip_amount + constants.ticker + "!");
                             }
                         } else {
                             player.sendMessage(ChatColor.RED + "The amount you sent was not a valid number");
                         }
                     }
                     else {
-                        sender.sendMessage(ChatColor.RED + "That player does not exist!!");
+                        sender.sendMessage(ChatColor.RED + "That player does not exist or is offline!!");
                     }
 
                 } catch (MalformedURLException | BitcoinRPCException e) {

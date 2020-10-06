@@ -103,7 +103,7 @@ public class SignListeners implements Listener {
                 }
                 else {
                     if (sign_target.isEmpty()) {
-                        player.sendMessage(ChatColor.RED + "You have not specified a player username to send BYND to");
+                        player.sendMessage(ChatColor.RED + "You have not specified a player username to send " + constants.ticker + " to");
                         sign.getBlock().breakNaturally();
                     }
                     else if (target == null) {
