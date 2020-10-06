@@ -50,6 +50,10 @@ Withdraw:
 
 ![](https://i.imgur.com/UqqYakX.png)
 
+Tipping:
+
+![](https://i.imgur.com/xCkgIPG.png)
+
 ### License:
 [Licensed under the MIT license](https://github.com/Nugetzrul3/BeyondCoin-MC-Plugin/blob/master/LICENSE)
 
