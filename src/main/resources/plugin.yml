@@ -10,7 +10,7 @@ commands:
   info:
     description: This command returns general info on the BYND network
   deposit:
-    description: This command returns a BYDN address to deposit BYND to
+    description: This command returns a BYND address to deposit BYND to
   balance:
     description: This command will return your tipbot balance
   tip:

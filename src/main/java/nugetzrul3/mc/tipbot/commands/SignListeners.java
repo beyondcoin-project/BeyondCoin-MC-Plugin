@@ -19,6 +19,7 @@ import wf.bitcoin.javabitcoindrpcclient.BitcoinRPCException;
 
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -74,7 +75,7 @@ public class SignListeners implements Listener {
             client = new BitcoinJSONRPCClient(url);
         } catch (MalformedURLException | BitcoinRPCException e) {
             e.printStackTrace();
-            player.sendMessage(net.md_5.bungee.api.ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
+            player.sendMessage(ChatColor.RED + "There was an error connecting to the " + constants.coinName + " daemon. Please notify the admins");
         }
         if (!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
         if (Objects.requireNonNull(event.getClickedBlock()).getState() instanceof Sign) {
@@ -107,15 +108,33 @@ public class SignListeners implements Listener {
                         sign.getBlock().breakNaturally();
                     }
                     else if (target == null) {
-                        player.sendMessage(ChatColor.RED + "The player you are trying to send to doesn't exist in this server");
+                        player.sendMessage(ChatColor.RED + "The player you are trying to send to doesn't exist in this server or is offline!!");
                         sign.getBlock().breakNaturally();
                     }
-                    /*else if (target.getDisplayName() == player.getDisplayName()) {
-                        player.sendMessage(ChatColor.RED + "You can't tip yourself m8")
+                    else if (target.getDisplayName().equals(player.getDisplayName())) {
+                        player.sendMessage(ChatColor.RED + "Paying yourself? You alright?");
                         sign.getBlock().breakNaturally();
-                    }*/
+                    }
                     else {
-                        player.sendMessage(ChatColor.GREEN + "Payment successful. You payed " + amount + " " + constants.ticker + " to " + target.getDisplayName());
+                        try {
+                            float pay_amount_float = Float.parseFloat(amount);
+                            BigDecimal pay_amount = new BigDecimal(String.valueOf(pay_amount_float));
+                            assert client != null;
+                            float payer_balance = client.getBalance(functions.getUserId(player.getDisplayName())).floatValue();
+
+                            if (payer_balance >= pay_amount_float) {
+                                client.move(functions.getUserId(player.getDisplayName()), functions.getUserId(target.getDisplayName()), pay_amount);
+                                player.sendMessage(ChatColor.GREEN + "Payment successful. You payed " + amount + " " + constants.ticker + " to " + target.getDisplayName());
+                                target.sendMessage(ChatColor.GREEN + player.getDisplayName() + " just payed you " + amount + constants.ticker);
+                            }
+                            else {
+                                player.sendMessage(ChatColor.RED + "You don't have enough " + constants.ticker + " to pay");
+                                sign.getBlock().breakNaturally();
+                            }
+                        } catch (IOException | BitcoinRPCException e){
+                            player.sendMessage(ChatColor.RED + "Oops, there was an error processing that payment. Please notify the admins :)");
+                            sign.getBlock().breakNaturally();
+                        }
                     }
                 }
 
