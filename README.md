@@ -27,7 +27,7 @@ To build a .jar file to add to your server:
 ### TODO:
 - [x] Test tip functionality
 - [x] Test withdraw functionality
-- [ ] Finalise and debug sign commands
+- [ ] Finalise and debug sign commands: /pay command succeeded
 
 ### Screenshots:
 Info:
@@ -53,6 +53,16 @@ Withdraw:
 Tipping:
 
 ![](https://i.imgur.com/xCkgIPG.png)
+
+#### Sign commands:
+In addition to the use of traditional Minecraft commands, this plugin also allows for the use of signs.
+
+For example, a /pay sign could be executed like this:
+
+![](https://i.imgur.com/vA2sP2y.png)
+
+Commands to be later implemented:
+- Quick withdraw: Sign created with /withdraw <amount> will look for the last address used by a user when they withdrawed and withdraw that amount to that address
 
 ### License:
 [Licensed under the MIT license](https://github.com/Nugetzrul3/BeyondCoin-MC-Plugin/blob/master/LICENSE)
