@@ -30,6 +30,7 @@ public class TipCommand implements CommandExecutor {
             sender.sendMessage("You're not a player m8");
         }
 
+        assert sender instanceof Player;
         Player player = (Player) sender;
 
         Constants constants = new Constants();

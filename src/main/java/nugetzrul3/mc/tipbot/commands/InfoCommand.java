@@ -58,7 +58,7 @@ public class InfoCommand implements CommandExecutor {
             List<String> prices = getPrice();
             String usd = prices.get(0);
             String btc = prices.get(1);
-            player.sendMessage(ChatColor.BLUE + "-- " + constants.coinName + "Network Information --");
+            player.sendMessage(ChatColor.BLUE + " -- " + constants.coinName + " Network Information --");
             player.sendMessage(ChatColor.GREEN + "Current Block Height: " + ChatColor.WHITE + client.getBlockCount() + "\n" +
                     ChatColor.GREEN + "Current Network hashrate: " + ChatColor.WHITE + functions.getHashFormat(client.getNetworkHashPs().floatValue()) + "\n" +
                     ChatColor.GREEN + "Current Network Difficulty: " + ChatColor.WHITE + client.getDifficulty() + "\n" +
